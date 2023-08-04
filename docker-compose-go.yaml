@@ -1,0 +1,14 @@
+services:
+  go_otel_compile:
+    image: otel/build-protobuf:0.9.0
+    command: >
+      sh -c "
+      apk update &&
+      apk add make git &&
+      modprobe tun &&
+      make gen-go
+      "
+    user: root
+    working_dir: /app/opentelemetry-proto
+    volumes:
+    - ./:/app/opentelemetry-proto

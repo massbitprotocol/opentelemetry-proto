@@ -23,7 +23,8 @@ gen-all: gen-cpp gen-csharp gen-go gen-java gen-kotlin gen-objc gen-openapi gen-
 OTEL_DOCKER_PROTOBUF ?= otel/build-protobuf:0.9.0
 BUF_DOCKER ?= bufbuild/buf:1.7.0
 
-PROTOC := docker run --rm -u ${shell id -u} -v${PWD}:${PWD} -w${PWD} ${OTEL_DOCKER_PROTOBUF} --proto_path=${PWD}
+PROTOC := docker-compose -f docker-compose-go.yaml run --rm go_otel_compile --proto_path=/app/opentelemetry-proto
+# PROTOC := docker run --rm -u ${shell id -u} -v${PWD}:${PWD} -w${PWD} ${OTEL_DOCKER_PROTOBUF} --proto_path=${PWD}
 BUF := docker run --rm -v "${PWD}:/workspace" -w /workspace ${BUF_DOCKER}
 # When checking for protobuf breaking changes, check against the latest release tag
 LAST_RELEASE_TAG := $(shell git tag --sort=committerdate | tail -1)
