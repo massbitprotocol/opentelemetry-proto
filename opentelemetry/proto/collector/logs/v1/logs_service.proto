@@ -31,6 +31,29 @@ service LogsService {
   // For performance reasons, it is recommended to keep this RPC
   // alive for the entire life of the application.
   rpc Export(ExportLogsServiceRequest) returns (ExportLogsServiceResponse) {}
+  rpc AggregatedExport(AggregatedRequestList) returns (AggregatedResponse) {}
+}
+
+message AggregatedRequestList {
+  repeated AggregatedRequest requests = 1;
+}
+
+message AggregatedRequest {
+  string gateway_id = 1;
+  string zone = 2;
+  string dapi_key = 3;
+  string node_id = 4;
+  string start_at = 5;
+  int64 request_count = 6;
+  int64 upstream_bytes_received = 7;
+  int64 upstream_bytes_sent = 8;
+  int64 downstream_bytes_sent = 9;
+  int64 downstream_bytes_received = 10;
+}
+
+message AggregatedResponse {
+  bool success = 1;
+  string message = 2;
 }
 
 message ExportLogsServiceRequest {
