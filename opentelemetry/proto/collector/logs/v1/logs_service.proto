@@ -49,6 +49,11 @@ message AggregatedRequest {
   int64 upstream_bytes_sent = 8;
   int64 downstream_bytes_sent = 9;
   int64 downstream_bytes_received = 10;
+  int64 request_1xx = 11;
+  int64 request_2xx = 12;
+  int64 request_3xx = 13;
+  int64 request_4xx = 14;
+  int64 request_5xx = 15;
 }
 
 message AggregatedResponse {
